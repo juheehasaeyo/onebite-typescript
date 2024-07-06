@@ -12,3 +12,5 @@ let config: {
 } = {
     apiKey: "MY API KEY",
 };
+
+// config.apiKey = "hacked";
