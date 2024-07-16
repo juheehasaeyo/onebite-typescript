@@ -1,56 +1,79 @@
 /**
- * unknown 타입
- *
+ * 기본타입 간의 호환성
  */
-function unknownExam() {
-    let a: unknown = 1;
-    let b: unknown = "hello";
-    let c: unknown = true;
-    let d: unknown = null;
-    let e: unknown = undefined;
-}
+
+let num1: number = 10;
+let num2: 10 = 10;
+
+num1 = num2; // 업캐스팅
 
 /**
- * never 타입 : 모든 타입의 서브타입(like 공집합)
+ * 객체타입 간의 호환성
+ * -> 어떤 객체타입을 다른 객체타입으로 취급해도 괜찮은가?
  */
-function neverExam() {
-    function neverFunc(): never {
-        while (true) {}
-    }
 
-    let num: number = neverFunc();
-    let str: string = neverFunc();
-    let bool: boolean = neverFunc();
+type Animal = {
+    name: string;
+    color: string; // 조건이 더 적은 타입이 슈퍼타입!
+};
 
-    // let never1: never = 10;
-    // let never2: never = "string";
-    // let never3: never = true;
-}
+type Dog = {
+    name: string;
+    color: string;
+    breed: string; // 추가 프로퍼티가 있다고 해서 슈퍼타입이 아님!
+};
+
+let animal: Animal = {
+    name: "기린",
+    color: "yellow",
+};
+
+let dog: Dog = {
+    name: "세숑이",
+    color: "brown",
+    breed: "비숑",
+};
+
+animal = dog;
+
+// dog = animal;
+
+type ProgrammingBook = {
+    name: string;
+    price: number;
+    skill: string; // 서브타입
+};
+
+let book: Book;
+let programmingBook: ProgrammingBook = {
+    name: "한 입 크기로 잘라먹는 타입스크립트",
+    price: 33000,
+    skill: "react.js",
+};
+
+book = programmingBook;
+// programmingBook = book;
 
 /**
- * void 타입
+ * 초과 프로퍼티 검사
  */
-function voidExam() {
-    function voidFunc(): void {
-        console.log("hi");
-        return undefined;
-    }
+type Book = {
+    name: string;
+    price: number;
+};
 
-    let voidVar: void = undefined;
-}
+let book2: Book = {
+    name: "한 입 크기로 잘라먹는 타입스크립트",
+    price: 33000,
+    // skill: "react.js", // 객체 타입에 정의된 프로퍼티만 넣을 수 있게!
+};
 
-/**
- * any 타입 : 타입계층도를 완벽히 무시함
- */
-function anyExam() {
-    let unknownVar: unknown;
-    let anyVar: any;
-    let undefinedVar: undefined;
-    let neverVar: never;
+let book3: Book = programmingBook;
 
-    anyVar = unknownVar;
-
-    undefinedVar = anyVar;
-
-    // neverVar = anyVar;
-}
+function func(book: Book) {}
+func({
+    name: "한 입 크기로 잘라먹는 타입스크립트",
+    price: 33000,
+    // skill: "react.js",
+});
+func(programmingBook);
