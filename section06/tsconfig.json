@@ -6,7 +6,8 @@
         "outDir": "dist",
         "strict": true,
         "moduleDetection": "force",
-        "allowJs": true
+        "allowJs": true,
+        "noImplicitAny": false
     },
     "ts-node": {
         "esm": true
