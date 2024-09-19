@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "skipLibCheck": true,
+        "target": "ES5",
+        "module": "CommonJS",
+        "allowJs": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "jsx": "react-jsx"
+    },
+    "include": ["src"]
+}
